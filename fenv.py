@@ -203,3 +203,22 @@ def rint(x) :
     return \
         libm.rint(x)
 #end rint
+
+class SaveRounding :
+    "context manager which saves and restores the current rounding setting."
+
+    __slots__ = ("saved_rounding",)
+
+    def __enter__(self) :
+        self.saved_rounding = ROUND.get()
+        return \
+            self
+    #end __enter__
+
+    def __exit__(self, exc_type, exc_value, traceback) :
+        self.saved_rounding.set()
+        return \
+            False
+    #end __exit__
+
+#end SaveRounding
