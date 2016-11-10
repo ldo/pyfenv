@@ -13,23 +13,6 @@ import ctypes as ct
 libm = ct.cdll.LoadLibrary("libm.so.6")
 
 class FE :
-    # Define bits representing the exception. We use the bit positions
-    # of the appropriate bits in the FPU control word.
-    INVALID = 0x01
-    DENORM = 0x02
-    DIVBYZERO = 0x04
-    OVERFLOW = 0x08
-    UNDERFLOW = 0x10
-    INEXACT = 0x20
-    ALL_EXCEPT = INEXACT | DIVBYZERO | UNDERFLOW | OVERFLOW | INVALID
-
-    # The ix87 FPU supports all of the four defined rounding modes.  We
-    # use again the bit positions in the FPU control word as the values
-    # for the appropriate macros.
-    TONEAREST = 0
-    DOWNWARD = 0x400
-    UPWARD = 0x800
-    TOWARDZERO = 0xc00
 
     fexcept_t = ct.c_ushort
 
