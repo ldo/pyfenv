@@ -152,6 +152,8 @@ libm.fegetexcept.argtypes = ()
 
 libm.nearbyint.restype = ct.c_double
 libm.nearbyint.argtypes = (ct.c_double,)
+libm.rint.restype = ct.c_double
+libm.rint.argtypes = (ct.c_double,)
 
 class ExceptFlag :
     "wrapper for implementation-defined representation of exception flags." \
@@ -205,7 +207,13 @@ class ExceptFlag :
 # TODO: floating-point environment, enable/disable individual exceptions
 
 def nearbyint(x) :
-    "rounding which respects current rounding direction."
+    "rounding which respects current rounding direction, without raising INEXACT."
     return \
         libm.nearbyint(x)
 #end nearbyint
+
+def rint(x) :
+    "rounding which respects current rounding direction, and which might raise INEXACT."
+    return \
+        libm.rint(x)
+#end rint
