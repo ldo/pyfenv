@@ -90,7 +90,7 @@ class EXCEPT(enum.Enum) :
 
     @property
     def test(self) :
-        "has this exception currently set."
+        "is this exception currently set."
         return \
             libm.fetestexcept(self.mask) & self.mask != 0
     #end test
