@@ -2,9 +2,11 @@
 # This Python 3 module gives access to the floating-point environment-control
 # functions available in <fenv.h> with C99.
 #
-# This code as it currently stands is certainly GCC-specific, and almost
-# certainly x86-specific. How to make it more portable while keeping it in
-# pure Python?
+# This code as it currently stands is almost certainly GCC- and x86-specific.
+# How to make it more portable while keeping it in pure Python?
+#
+# Copyright 2016 by Lawrence D'Oliveiro <ldo@geek-central.gen.nz>.
+# Licensed under CC-BY-SA <http://creativecommons.org/licenses/by-sa/4.0/>.
 #-
 
 import enum
@@ -13,6 +15,7 @@ import ctypes as ct
 libm = ct.cdll.LoadLibrary("libm.so.6")
 
 class FE :
+    # any lower-level definitions from the include files would go here.
 
     fexcept_t = ct.c_ushort
 
