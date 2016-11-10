@@ -104,9 +104,9 @@ EXCEPT_ALL = frozenset \
 @enum.unique
 class ROUND(enum.Enum) :
     TONEAREST = 0
-    DOWNWARD = 1
-    UPWARD = 2
-    TOWARDZERO = 3
+    DOWNWARD = 0x400
+    UPWARD = 0x800
+    TOWARDZERO = 0xc00
 
     @classmethod
     def get(celf) :
