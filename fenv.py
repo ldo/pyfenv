@@ -46,12 +46,18 @@ class EXCEPT(enum.Enum) :
     UNDERFLOW = 4
     INEXACT = 5
 
+    @property
+    def mask(self) :
+        return \
+            1 << self.value
+    #end mask
+
     @classmethod
     def from_mask(celf, mask) :
         "converts a bitmask to a frozenset of EXCEPT.xxx values."
         result = set()
         for e in celf.__members__.values() :
-            if 1 << e.value & mask != 0 :
+            if e.mask & mask != 0 :
                 result.add(e)
             #end if
         #end for
@@ -65,12 +71,29 @@ class EXCEPT(enum.Enum) :
         result = 0
         for e in celf.__members__.values() :
             if e in flags :
-                result |= 1 << e.value
+                result |= e.mask
             #end if
         #end for
         return \
             result
     #end to_mask
+
+    def clear(self) :
+        "clears this exception."
+        libm.feclearexcept(self.mask)
+    #end clear
+
+    def raıse(self) :
+        "raises this exception."
+        libm.feraiseexcept(self.mask)
+    #end raıse
+
+    @property
+    def test(self) :
+        "has this exception currently set."
+        return \
+            libm.fetestexcept(self.mask) & self.mask != 0
+    #end test
 
 #end EXCEPT
 EXCEPT_ALL = frozenset \
