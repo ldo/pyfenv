@@ -140,6 +140,8 @@ libm.nearbyint.restype = ct.c_double
 libm.nearbyint.argtypes = (ct.c_double,)
 libm.rint.restype = ct.c_double
 libm.rint.argtypes = (ct.c_double,)
+libm.nextafter.restype = ct.c_double
+libm.nextafter.argtypes = (ct.c_double, ct.c_double)
 
 class ExceptFlag :
     "wrapper for implementation-defined representation of exception flags." \
@@ -203,6 +205,12 @@ def rint(x) :
     return \
         libm.rint(x)
 #end rint
+
+def nextafter(x, y) :
+    "returns the next representable float from x in the direction of y."
+    return \
+        libm.nextafter(x, y)
+#end nextafter
 
 class SaveRounding :
     "context manager which saves and restores the current rounding setting."
