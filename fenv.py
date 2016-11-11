@@ -1,6 +1,7 @@
 #+
 # This Python 3 module gives access to the floating-point environment-control
-# functions available in <fenv.h> with C99.
+# functions available in <fenv.h> with C99, along with some other useful
+# numerics-related stuff not currently standard in Python.
 #
 # This code as it currently stands is almost certainly GCC- and x86-specific.
 # How to make it more portable while keeping it in pure Python?
@@ -143,6 +144,11 @@ libm.rint.argtypes = (ct.c_double,)
 libm.nextafter.restype = ct.c_double
 libm.nextafter.argtypes = (ct.c_double, ct.c_double)
 
+libm.__fpclassify.restype = ct.c_int
+libm.__fpclassify.argtypes = (ct.c_double,)
+libm.fpclassify = libm.__fpclassify
+  # avoid weird error when trying to call it under its actual name
+
 class ExceptFlag :
     "wrapper for implementation-defined representation of exception flags." \
     " Do not instantiate directly; use the getflag method."
@@ -230,3 +236,27 @@ class SaveRounding :
     #end __exit__
 
 #end SaveRounding
+
+@enum.unique
+class FP(enum.Enum) :
+    "classification of numeric values."
+    NAN = 0
+    INFINITE = 1
+    ZERO = 2
+    SUBNORMAL = 3
+    NORMAL = 4
+
+    @classmethod
+    def classify(celf, x) :
+        "returns the classification of the real value x."
+        return \
+            celf(libm.fpclassify(x))
+    #end classify
+
+#end FP
+
+def isnormal(x) :
+    "is x a normalized float."
+    return \
+        FP.classify(x) == FP.NORMAL
+#end isnormal
