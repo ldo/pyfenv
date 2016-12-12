@@ -75,6 +75,8 @@ class EXCEPT(enum.Enum) :
         libm.feraiseexcept(self.mask)
     #end raıse
 
+    raiise = raıse # if you prefer
+
     @property
     def test(self) :
         "is this exception currently set."
