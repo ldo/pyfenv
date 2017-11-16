@@ -183,6 +183,8 @@ class ExceptFlag :
         libm.feraiseexcept(EXCEPT.to_mask(excepts))
     #end raıse
 
+    raiise = raıse # if you prefer
+
     def setflag(self, excepts) :
         "sets status for all exceptions represented by excepts, which is a set of" \
         " EXCEPT.xxx values, to those saved in this ExceptFlag instance."
