@@ -17,6 +17,6 @@ distutils.core.setup \
     description = "access to additional functionality in C99 fenv.h, for Python 3.4 or later",
     author = "Lawrence D'Oliveiro",
     author_email = "ldo@geek-central.gen.nz",
-    url = "http://github.com/ldo/pyfenv",
+    url = "https://github.com/ldo/pyfenv",
     py_modules = ["fenv"],
   )
